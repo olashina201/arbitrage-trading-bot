@@ -86,9 +86,9 @@ async function main() {
     {
         console.log('USDC/wETH');
         // https://info.quickswap.exchange/#/pair/0x853ee4b2a13f8a742d64c8f088be7ba2131f670d
-        const quickSwapData = await uniswapV2Price(poolContract('0x853ee4b2a13f8a742d64c8f088be7ba2131f670d', IUniswapV2PairABI), 3000);
-        quickSwapData.token0_1 /= 10**12;
-        quickSwapData.token1_0 *= 10**12;
+        // const quickSwapData = await uniswapV2Price(poolContract('0x853ee4b2a13f8a742d64c8f088be7ba2131f670d', IUniswapV2PairABI), 3000);
+        // quickSwapData.token0_1 /= 10**12;
+        // quickSwapData.token1_0 *= 10**12;
 
         // ?
         const firebirdData = await uniswapV2Price(poolContract('0x853ee4b2a13f8a742d64c8f088be7ba2131f670d', IUniswapV2PairABI), 3000);
@@ -98,7 +98,7 @@ async function main() {
         const dat: any = await runMath(25000, [
             // https://info.uniswap.org/#/polygon/pools/0x45dda9cb7c25131df268515131f647d726f50608
             await uniswapV3Price(poolContract('0x45dda9cb7c25131df268515131f647d726f50608', IUniswapV3PoolABI), 6, 18, 500),
-            quickSwapData,
+            // quickSwapData,
             firebirdData
         ]);
         if (dat != null) {
@@ -106,33 +106,6 @@ async function main() {
             dat.sell["tokenIn"] = '0x7ceb23fd6bc0add59e62ac25578270cff1b9f619';
 
             await cntr.functions.execute(dat, ethers.utils.parseUnits('25000', 6), { gasLimit: process.env.GAS_LIMIT, nonce: await getNonce(signer.address) }).catch(console.error);
-        }
-    }
-
-    // ============ wBTC/wETH ============
-    {
-        console.log('wBTC/wETH');
-        // https://info.quickswap.exchange/#/pair/0xdc9232e2df177d7a12fdff6ecbab114e2231198d
-        const quickSwapData = await uniswapV2Price(poolContract('0xdc9232e2df177d7a12fdff6ecbab114e2231198d', IUniswapV2PairABI), 3000);
-        quickSwapData.token0_1 /= 10**10;
-        quickSwapData.token1_0 *= 10**10;
-
-        // ?
-        const firebirdData = await uniswapV2Price(poolContract('0x10f525cfbce668815da5142460af0fcfb5163c81', IUniswapV2PairABI), 3000);
-        firebirdData.token0_1 /= 10**10;
-        firebirdData.token1_0 *= 10**10;
-
-        const dat: any = await runMath(2, [
-            // https://info.uniswap.org/#/polygon/pools/0x50eaedb835021e4a108b7290636d62e9765cc6d7
-            await uniswapV3Price(poolContract('0x50eaedb835021e4a108b7290636d62e9765cc6d7', IUniswapV3PoolABI), 8, 18, 500),
-            quickSwapData,
-            firebirdData
-        ]);
-        if (dat != null) {
-            dat.buy["tokenIn"] = '0x1bfd67037b42cf73acf2047067bd4f2c47d9bfd6';
-            dat.sell["tokenIn"] = '0x7ceb23fd6bc0add59e62ac25578270cff1b9f619';
-
-            await cntr.functions.execute(dat, ethers.utils.parseUnits('2', 8), { gasLimit: process.env.GAS_LIMIT, nonce: await getNonce(signer.address) }).catch(console.error);
         }
     }
 
