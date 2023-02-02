@@ -86,9 +86,9 @@ async function main() {
     {
         console.log('USDC/wETH');
         // https://info.quickswap.exchange/#/pair/0x853ee4b2a13f8a742d64c8f088be7ba2131f670d
-        // const quickSwapData = await uniswapV2Price(poolContract('0x853ee4b2a13f8a742d64c8f088be7ba2131f670d', IUniswapV2PairABI), 3000);
-        // quickSwapData.token0_1 /= 10**12;
-        // quickSwapData.token1_0 *= 10**12;
+        const quickSwapData = await uniswapV2Price(poolContract('0x853ee4b2a13f8a742d64c8f088be7ba2131f670d', IUniswapV2PairABI), 3000);
+        quickSwapData.token0_1 /= 10**12;
+        quickSwapData.token1_0 *= 10**12;
 
         // ?
         const firebirdData = await uniswapV2Price(poolContract('0x853ee4b2a13f8a742d64c8f088be7ba2131f670d', IUniswapV2PairABI), 3000);
@@ -109,9 +109,23 @@ async function main() {
         }
     }
 
-    // ============ wMATIC/USDC ============
-    // https://info.uniswap.org/#/polygon/pools/0xa374094527e1673a86de625aa59517c5de346d32
-    // https://info.quickswap.exchange/#/pair/0x6e7a5fafcec6bb1e78bae2a1f0b612012bf14827
+    // ============ Exchange Addresses ============
+
+    // ============ UniswapV2 ============
+    // https://etherscan.io/address/0xa478c2975ab1ea89e8196811f51a7b7ade33eb11
+    // ============ Croswap ============
+    // https://etherscan.io/address/0x60a26d69263ef43e9a68964ba141263f19d71d51
+    // ============ Sushiswap ============
+    // https://etherscan.io/address/0xc3d03e4f041fd4cd388c549ee2a29a9e5075882f
+    // ============ Shebaswap ============
+    // https://etherscan.io/address/0x8faf958e36c6970497386118030e6297fff8d275
+    
+    // ============ Token Addresses ============
+
+    // ============ WETH ============
+    // https://etherscan.io/address/0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2
+    // ============ DAI ============
+    // https://etherscan.io/address/0x6b175474e89094c44da98b954eedeac495271d0f
 
     runCounter++;
     console.log(`(${runCounter}/${oppCounter}) Finished. Awaiting next call.`);
